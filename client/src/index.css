@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Discord-like Dark Violet Theme */
+  --background: 234 14% 11%;  /* #1e1f29 */
+  --foreground: 240 100% 98%; /* #f8f9ff */
+  --muted: 234 14% 18%;       /* #2b2d42 */
+  --muted-foreground: 235 8% 64%; /* #9ca3af */
+  --popover: 234 14% 15%;     /* #252738 */
+  --popover-foreground: 240 100% 98%;
+  --card: 234 14% 15%;        /* #252738 */
+  --card-foreground: 240 100% 98%;
+  --border: 234 14% 24%;      /* #3c3f5b */
+  --input: 234 14% 20%;       /* #323447 */
+  --primary: 263 83% 65%;     /* #7c3aed */
+  --primary-foreground: 240 100% 99%;
+  --secondary: 234 14% 18%;   /* #2b2d42 */
+  --secondary-foreground: 240 100% 98%;
+  --accent: 263 83% 65%;      /* #7c3aed */
+  --accent-foreground: 240 100% 99%;
+  --destructive: 0 65% 58%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 263 83% 65%;
+  --radius: 0.5rem;
+  
+  /* Custom pathfinding colors - Discord theme */
+  --grid-empty: 234 14% 18%;     /* #2b2d42 */
+  --grid-obstacle: 350 89% 60%;  /* #ed4a7b */
+  --grid-start: 142 76% 36%;     /* #22c55e */
+  --grid-end: 217 91% 60%;       /* #3b82f6 */
+  --grid-explored: 47 96% 89%;   /* #fef3c7 */
+  --grid-path: 142 69% 58%;      /* #4ade80 */
+  --grid-current: 32 95% 44%;    /* #f97316 */
+  --surface: 234 14% 15%;        /* #252738 */
+  --on-surface: 240 100% 98%;
+  --on-surface-variant: 235 8% 64%;
+}
+
+.dark {
+  /* Even darker Discord theme for explicit dark mode */
+  --background: 222 14% 8%;
+  --foreground: 240 100% 98%;
+  --muted: 222 14% 12%;
+  --muted-foreground: 235 8% 64%;
+  --popover: 222 14% 10%;
+  --popover-foreground: 240 100% 98%;
+  --card: 222 14% 10%;
+  --card-foreground: 240 100% 98%;
+  --border: 222 14% 18%;
+  --input: 222 14% 15%;
+  --primary: 263 83% 65%;
+  --primary-foreground: 240 100% 99%;
+  --secondary: 222 14% 12%;
+  --secondary-foreground: 240 100% 98%;
+  --accent: 263 83% 65%;
+  --accent-foreground: 240 100% 99%;
+  --destructive: 0 65% 58%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 263 83% 65%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Grid cell styles */
+.grid-cell {
+  aspect-ratio: 1;
+  transition: all 0.2s ease;
+  border: 1px solid hsl(var(--border));
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.grid-cell:hover {
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
+  border-color: hsl(var(--primary));
+}
+
+.grid-cell.empty {
+  background-color: hsl(var(--grid-empty));
+}
+
+.grid-cell.obstacle {
+  background-color: hsl(var(--grid-obstacle));
+}
+
+.grid-cell.start {
+  background-color: hsl(var(--grid-start));
+}
+
+.grid-cell.end {
+  background-color: hsl(var(--grid-end));
+}
+
+.grid-cell.explored {
+  background-color: hsl(var(--grid-explored));
+  animation: explore 0.3s ease;
+}
+
+.grid-cell.path {
+  background-color: hsl(var(--grid-path));
+  animation: pathFound 0.5s ease;
+}
+
+.grid-cell.current {
+  background-color: hsl(var(--grid-current));
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
+}
+
+@keyframes explore {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pathFound {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.control-button {
+  transition: all 0.2s ease;
+}
+
+.control-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
